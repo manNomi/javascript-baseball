@@ -1,4 +1,8 @@
 const regexPatterns = {
+  THREE_DIGIT_COMMA: {
+    regex: /^\d,\d,\d/,
+    description: '[문자열] 숫자3개와 콤마 ',
+  },
   EMPTY_STRING: {
     regex: /^$/,
     description: '[문자열] 빈 문자열 여부 확인',
@@ -93,6 +97,10 @@ const regexPatterns = {
   PASSWORD_SIMPLE: {
     regex: /^[a-zA-Z0-9]{6,}$/,
     description: '[비밀번호] 간단한 비밀번호 (특수문자 제외)',
+  },
+  THREE_DIGIT_PIN: {
+    regex: /^\d{4}$/,
+    description: '[PIN] 3자리 숫자 정수 ',
   },
   FOUR_DIGIT_PIN: {
     regex: /^\d{4}$/,
