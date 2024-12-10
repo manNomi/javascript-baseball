@@ -1,3 +1,5 @@
+import OutputView from '../../View/OutputView.js';
+
 export default class Verification {
   constructor(randomNumber) {
     this.randomNumber = randomNumber;
@@ -8,7 +10,11 @@ export default class Verification {
 
   verifyResult(clinetInput) {
     const checkedStrike = this.checkStrike(clinetInput);
+    const output = new OutputView();
+    output.print(checkedStrike);
     const checkedBall = this.checkBall(checkedStrike);
+    output.print(checkedBall);
+
     this.countStrikeBall(checkedBall);
   }
 
@@ -29,8 +35,8 @@ export default class Verification {
   // 위치와 숫자가 일치할경우 S로 반환
   // EX [1,2,3] [1,5,3] => [S,5,S]
   checkStrike(input) {
-    return this.randomNumber.map((number, index) => {
-      if (number === input[index]) {
+    return input.map((number, index) => {
+      if (number === this.randomNumber[index]) {
         return 'S';
       }
       return number;
@@ -52,7 +58,7 @@ export default class Verification {
         this.strike += 1;
       }
       if (number === 'B') {
-        this.strike += 1;
+        this.ball += 1;
       }
     });
   }

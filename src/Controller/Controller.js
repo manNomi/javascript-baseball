@@ -21,6 +21,7 @@ class Controller {
     while (gameContinued) {
       const randomNumberList = getRandomNumber();
       let win = false;
+      this.outputView.print(randomNumberList);
       while (!win) {
         const inputClientNumber = await this.inputService.inputPattern(
           INPUT_MESSAGEE.GAME_INPUT_NUMBER,

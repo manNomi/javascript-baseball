@@ -4,7 +4,7 @@
  * @returns {Array} 변환된 배열
  */
 export function parseCommaSeparatedString(str) {
-  return str.split(',').map((item) => item.trim());
+  return str.split(',').map((item) => parseInt(item.trim(), 10));
 }
 
 /**
