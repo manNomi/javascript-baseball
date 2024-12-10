@@ -1,3 +1,5 @@
+import regexPatterns from './regexPatterns.js';
+
 class Validate {
   /**
    * 입력값이 빈 문자열인지 확인.
@@ -8,6 +10,24 @@ class Validate {
     if (!input || input.trim() === '') {
       throw new Error('입력값이 비어 있을 수 없습니다.');
     }
+  }
+
+  static isNotRepeatedDigit(input) {
+    const pattern = regexPatterns.THREE_DIGIT_COMMA.regex;
+    const message = regexPatterns.THREE_DIGIT_COMMA.description;
+    if (!pattern.test(input)) {
+      throw new Error(`${message}: ${pattern}`);
+    }
+    const paresd = input.split(',');
+    const set = new Set(paresd);
+    if ([...set].length !== paresd.length) {
+      throw new Error(`증복되는 값이 있습니다${set}`);
+    }
+    paresd.forEach((number) => {
+      if (number === '0') {
+        throw new Error('0은 들어가서 안됩니다');
+      }
+    });
   }
 
   /**

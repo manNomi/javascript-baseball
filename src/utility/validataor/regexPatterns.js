@@ -1,6 +1,6 @@
 const regexPatterns = {
   THREE_DIGIT_COMMA: {
-    regex: /^\d,\d,\d/,
+    regex: /^\d,\d,\d$/,
     description: '[문자열] 숫자3개와 콤마 ',
   },
   EMPTY_STRING: {

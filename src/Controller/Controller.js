@@ -4,9 +4,9 @@ import InputService from '../Service/InputService.js';
 import OutputService from '../Service/OutPutService.js';
 import { INPUT_MESSAGEE } from '../config/constant.js';
 import getRandomNumber from '../utility/random/index.js';
-import regexPatterns from '../utility/validataor/regexPatterns.js';
 import Verification from '../model/Verification/index.js';
 import { parseCommaSeparatedString } from '../utility/parser/parsing.js';
+import Validate from '../utility/validataor/Validator.js';
 
 class Controller {
   constructor() {
@@ -23,10 +23,9 @@ class Controller {
       let win = false;
       this.outputView.print(randomNumberList);
       while (!win) {
-        const inputClientNumber = await this.inputService.inputPattern(
+        const inputClientNumber = await this.inputService.inputProcess(
           INPUT_MESSAGEE.GAME_INPUT_NUMBER,
-          regexPatterns.THREE_DIGIT_COMMA.regex,
-          regexPatterns.THREE_DIGIT_COMMA.description,
+          Validate.isNotRepeatedDigit,
         );
         const parsedInput = parseCommaSeparatedString(inputClientNumber);
         const verification = new Verification(randomNumberList);
