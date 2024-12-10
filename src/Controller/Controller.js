@@ -20,24 +20,28 @@ class Controller {
     let gameContinued = true;
     while (gameContinued) {
       const randomNumberList = getRandomNumber();
-      let win = false;
+      const win = false;
       this.outputView.print(randomNumberList);
       while (!win) {
-        const inputClientNumber = await this.inputService.inputProcess(
-          INPUT_MESSAGEE.GAME_INPUT_NUMBER,
-          Validate.isNotRepeatedDigit,
-        );
-        const parsedInput = parseCommaSeparatedString(inputClientNumber);
-        const verification = new Verification(randomNumberList);
-        verification.verifyResult(parsedInput);
-        const result = verification.getResult();
-        this.outputService.printResult(result);
-        win = verification.getResultWin();
+        this.game(randomNumberList);
       }
       gameContinued = await this.inputService.inputGameContinue(
         INPUT_MESSAGEE.GAME_RESTART,
       );
     }
+  }
+
+  async game() {
+    const inputClientNumber = await this.inputService.inputProcess(
+      INPUT_MESSAGEE.GAME_INPUT_NUMBER,
+      Validate.isNotRepeatedDigit,
+    );
+    const parsedInput = parseCommaSeparatedString(inputClientNumber);
+    const verification = new Verification(randomNumberList);
+    verification.verifyResult(parsedInput);
+    const result = verification.getResult();
+    this.outputService.printResult(result);
+    win = verification.getResultWin();
   }
 }
 
