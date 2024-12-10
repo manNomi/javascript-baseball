@@ -14,6 +14,18 @@ export default class InputService {
     while (true) {
       try {
         const inputText = await this.inputView.input(inputMessage);
+        validate(inputText);
+        return inputText; // 검증 통과 시 반환
+      } catch (error) {
+        this.outputView.print(error.message); // 에러 메시지 출력
+      }
+    }
+  }
+
+  async inputProcessTF(inputMessage, validate) {
+    while (true) {
+      try {
+        const inputText = await this.inputView.input(inputMessage);
         return validate(inputText); // 검증 통과 시 반환
       } catch (error) {
         this.outputView.print(error.message); // 에러 메시지 출력
@@ -101,7 +113,7 @@ export default class InputService {
   }
 
   async inputGameContinue(inputMessage) {
-    return await this.inputProcess(inputMessage, (inputText) => {
+    return await this.inputProcessTF(inputMessage, (inputText) => {
       if (inputText === '1') return true;
       if (inputText === '2') return false;
       throw new Error('유효하지 않은 입력입니다. "1" 또는 "2"를 입력하세요.');
