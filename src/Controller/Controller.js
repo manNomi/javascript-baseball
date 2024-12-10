@@ -6,6 +6,7 @@ import { INPUT_MESSAGEE } from '../config/constant.js';
 import getRandomNumber from '../utility/random/index.js';
 import regexPatterns from '../utility/validataor/regexPatterns.js';
 import Verification from '../model/Verification/index.js';
+import { parseCommaSeparatedString } from '../utility/parser/parsing.js';
 
 class Controller {
   constructor() {
@@ -19,15 +20,16 @@ class Controller {
     let gameContinued = true;
     while (gameContinued) {
       const randomNumberList = getRandomNumber();
-      let win = true;
+      let win = false;
       while (!win) {
         const inputClientNumber = await this.inputService.inputPattern(
           INPUT_MESSAGEE.GAME_INPUT_NUMBER,
           regexPatterns.THREE_DIGIT_COMMA.regex,
           regexPatterns.THREE_DIGIT_COMMA.description,
         );
+        const parsedInput = parseCommaSeparatedString(inputClientNumber);
         const verification = new Verification(randomNumberList);
-        verification.verifyResult(inputClientNumber);
+        verification.verifyResult(parsedInput);
         const result = verification.getResult();
         this.outputService.printResult(result);
         win = verification.getResultWin();
